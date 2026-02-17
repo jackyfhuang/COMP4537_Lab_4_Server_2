@@ -1,0 +1,12 @@
+{
+  "name": "lab4-server2",
+  "version": "1.0.0",
+  "description": "Node.js server for Lab 4 - Patient database API",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "mysql2": "^3.6.5"
+  }
+}
