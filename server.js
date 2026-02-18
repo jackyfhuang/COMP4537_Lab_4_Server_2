@@ -1,13 +1,11 @@
 // Lab 4 - Patient Database API Server
 // Attribution: ChatGPT was used to assist with code structure and implementation
-// Note: All code has been reviewed and understood line by line
 
 const http = require('http');
 const url = require('url');
 const mysql = require('mysql2/promise');
 const { DB_CONFIG_READONLY, DB_CONFIG_INSERT, PATIENT_DATA } = require('./dbConfig');
 
-// SQL keywords to block (server-side validation)
 const BLOCKED_KEYWORDS = ['DROP', 'DELETE', 'UPDATE', 'CREATE', 'ALTER', 'TRUNCATE', 'INSERT'];
 
 // Helper function to set CORS headers
@@ -37,7 +35,6 @@ function validateSQLQuery(query) {
 
     const upperQuery = query.trim().toUpperCase();
     
-    // Must start with SELECT
     if (!upperQuery.startsWith('SELECT')) {
         return { valid: false, error: 'Only SELECT queries are allowed' };
     }
@@ -58,7 +55,6 @@ async function handlePOST(request, response) {
     try {
         connection = await mysql.createConnection(DB_CONFIG_INSERT);
         
-        // Check and create table if it doesn't exist (every time insert button is pressed)
         await createTableIfNotExists(connection);
 
         // Insert patient data
@@ -79,7 +75,10 @@ async function handlePOST(request, response) {
         console.error('Error in POST handler:', error);
         setCORSHeaders(response);
         response.writeHead(500);
-        response.end(JSON.stringify({ success: false, error: error.message }));
+        response.end(JSON.stringify({ 
+            success: false, 
+            error: error.message || error.toString() || 'Database connection failed' 
+        }));
     } finally {
         if (connection) await connection.end();
     }
@@ -135,7 +134,10 @@ async function handleGET(request, response) {
         console.error('Error in GET handler:', error);
         setCORSHeaders(response);
         response.writeHead(500);
-        response.end(JSON.stringify({ success: false, error: error.message }));
+        response.end(JSON.stringify({ 
+            success: false, 
+            error: error.message || error.toString() || 'Database connection failed' 
+        }));
     } finally {
         if (connection) await connection.end();
     }

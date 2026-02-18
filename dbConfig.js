@@ -8,7 +8,10 @@ const DB_CONFIG_READONLY = {
     user: 'lab4_readonly_user',  
     password: 'readonly_password',  
     database: 'lab4_patients_db',
-    multipleStatements: false  
+    multipleStatements: false,
+    ssl: {
+        rejectUnauthorized: false  // Railway uses self-signed certificates
+    }
 };
 
 // Insert user configuration (for INSERT operations)
@@ -18,7 +21,10 @@ const DB_CONFIG_INSERT = {
     user: 'lab4_insert_user',  
     password: 'insert_password',  
     database: 'lab4_patients_db',
-    multipleStatements: false 
+    multipleStatements: false,
+    ssl: {
+        rejectUnauthorized: false  // Railway uses self-signed certificates
+    }
 };
 
 // Patient data to insert
