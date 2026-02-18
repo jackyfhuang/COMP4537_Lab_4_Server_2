@@ -3,7 +3,8 @@
 
 // Read-only user configuration (for SELECT queries only)
 const DB_CONFIG_READONLY = {
-    host: 'localhost',
+    host: 'crossover.proxy.rlwy.net',
+    port: 18634,
     user: 'lab4_readonly_user',  
     password: 'readonly_password',  
     database: 'lab4_patients_db',
@@ -12,7 +13,8 @@ const DB_CONFIG_READONLY = {
 
 // Insert user configuration (for INSERT operations)
 const DB_CONFIG_INSERT = {
-    host: 'localhost',
+    host: 'crossover.proxy.rlwy.net',
+    port: 18634,
     user: 'lab4_insert_user',  
     password: 'insert_password',  
     database: 'lab4_patients_db',
